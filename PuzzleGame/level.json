@@ -1,0 +1,31 @@
+{
+    
+    "grid": {
+      "width": 40,
+      "height": 40
+    },
+    "walls": [
+      { "x": 5, "y": 5 }
+    ],
+    "plates": [
+      { "x": 4, "y": 4, "color": "red" },
+      { "x": 6, "y": 6, "color": "red" },
+      { "x": 10, "y": 10, "color": "blue" },
+      { "x": 11, "y": 11, "color": "blue" }
+    ],
+    "doors": [
+      { "x": 7, "y": 7, "color": "red", "linkedPlate": { "x": 4, "y": 4 } },
+      { "x": 8, "y": 8, "color": "red", "linkedPlate": { "x": 6, "y": 6 } },
+      { "x": 12, "y": 12, "color": "blue", "linkedPlate": { "x": 10, "y": 10 } },
+      { "x": 13, "y": 13, "color": "blue", "linkedPlate": { "x": 11, "y": 11 } }
+    ],
+    "goals": [
+      { "x": 15, "y": 15 },
+      { "x": 18, "y": 15 }
+    ],
+    "players": [
+      { "x": 2, "y": 2, "color": "blue" },
+      { "x": 3, "y": 3, "color": "red" }
+    ]
+  }
+  
