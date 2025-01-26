@@ -6,11 +6,11 @@ export class Door extends Point {
     private open: boolean;
 
     constructor(x: number, y: number, color: string, plate: Plate) {
-        super(x,y)
+        super(x, y)
         this.color = color;
         this.open = false;
     }
-    
+
     public getColor(): string {
         return this.color;
     }
@@ -22,5 +22,5 @@ export class Door extends Point {
     public setOpen(open: boolean): void {
         this.open = open;
     }
-    
+
 }

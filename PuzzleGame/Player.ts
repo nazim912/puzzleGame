@@ -5,7 +5,7 @@ export class Player {
     public y: number;
     public color: string;
 
-    constructor( x: number, y: number, color: string,) {
+    constructor(x: number, y: number, color: string,) {
         this.x = x;
         this.y = y;
         this.color = color;
@@ -19,19 +19,19 @@ export class Player {
     }
 
     public move(direction: Direction): void {
-    
+
         switch (direction) {
             case Direction.UP:
-                this.y --;
+                this.y--;
                 break;
             case Direction.DOWN:
-                this.y ++;
+                this.y++;
                 break;
             case Direction.LEFT:
-                this.x --;
+                this.x--;
                 break;
             case Direction.RIGHT:
-                this.x ++;
+                this.x++;
                 break;
         }
     }

@@ -14,7 +14,7 @@ export class Display {
         for (const wall of walls) {
             this.drawer.drawRectangle(wall.getX(), wall.getY(), "black");
         }
-        
+
         const plates = game.getGrid().getPlates();
         for (const plate of plates) {
             this.drawer.drawCircle(plate.getX(), plate.getY(), plate.getColor());
@@ -28,6 +28,14 @@ export class Display {
         const goals = game.getGrid().getGoals();
         for (const goal of goals) {
             this.drawer.drawDiamond(goal.getX(), goal.getY(), "green");
+        }
+        const teleporters = game.getGrid().getTeleporteurs();
+        for (const teleporter of teleporters) {
+            const entry = teleporter.getEntry();
+            const exit = teleporter.getExit();
+
+            this.drawer.drawRectangle(entry.getX(), entry.getY(), "purple");
+            this.drawer.drawRectangle(exit.getX(), exit.getY(), "orange");
         }
 
         const player1 = game.getPlayer1();

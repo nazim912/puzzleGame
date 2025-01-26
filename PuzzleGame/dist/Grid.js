@@ -1,12 +1,14 @@
 import { Point } from "./Point.js";
 import { Door } from "./Door.js";
 import { Plate } from "./Plate.js";
+import { Teleporteur } from "./Teleporteur.js";
 export class Grid {
     constructor(width, height) {
         this.walls = [];
         this.doors = [];
         this.plates = [];
         this.goals = [];
+        this.teleporters = [];
         this.width = width;
         this.height = height;
     }
@@ -15,6 +17,7 @@ export class Grid {
         this.doors = [];
         this.plates = [];
         this.goals = [];
+        this.teleporters = [];
     }
     addWall(x, y) {
         this.walls.push(new Point(x, y));
@@ -27,6 +30,9 @@ export class Grid {
     }
     addGoal(x, y) {
         this.goals.push(new Point(x, y));
+    }
+    addTeleporteur(entryX, entryY, exitX, exitY) {
+        this.teleporters.push(new Teleporteur(entryX, entryY, exitX, exitY));
     }
     updateDoors(playersPositions) {
         for (let i = 0; i < this.plates.length; i++) {
@@ -77,6 +83,14 @@ export class Grid {
             }
         }
     }
+    getTeleporteurEntre(position) {
+        for (let i = 0; i < this.teleporters.length; i++) {
+            if (this.teleporters[i].isOnEntry(position)) {
+                return this.teleporters[i];
+            }
+        }
+        return undefined;
+    }
     getDoors() {
         return this.doors;
     }
@@ -88,6 +102,9 @@ export class Grid {
     }
     getGoals() {
         return this.goals;
+    }
+    getTeleporteurs() {
+        return this.teleporters;
     }
     getWidth() {
         return this.width;

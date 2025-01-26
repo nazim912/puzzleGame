@@ -14,6 +14,7 @@ export class Game {
         this.grid.clear();
         this.player1.setPosition(5, 10);
         this.player2.setPosition(5, 30);
+        this.grid.addTeleporteur(9, 17, 23, 16);
         // h/
         for (let i = 3; i < 33; i++) {
             // verifier limite zone 
@@ -62,7 +63,6 @@ export class Game {
         const redPlate2 = new Plate(6, 6, "red");
         this.grid.addPlate(5, 6, "red");
         this.grid.addPlate(8, 22, "red");
-        this.grid.addPlate(20, 18, "red");
         this.grid.addDoor(15, 29, "red", redPlate1);
         this.grid.addDoor(25, 25, "red", redPlate2);
         this.grid.addDoor(15, 18, "red", redPlate1);
@@ -129,6 +129,7 @@ export class Game {
                 if (this.canMoveTo(player, nextPosition)) {
                     player.move(direction);
                     this.grid.updateDoors(this.playerPos());
+                    this.Teleportation(player, nextPosition);
                 }
                 this.display.draw(this);
                 if (this.checkLevelCompletion()) {
@@ -136,6 +137,12 @@ export class Game {
                 }
             }
         });
+    }
+    Teleportation(player, position) {
+        const teleporter = this.grid.getTeleporteurEntre(position);
+        if (teleporter) {
+            player.setPosition(teleporter.getExit().getX(), teleporter.getExit().getY());
+        }
     }
     getNextPosition(player, direction) {
         switch (direction) {

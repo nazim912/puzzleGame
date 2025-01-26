@@ -1,12 +1,14 @@
 import { Point } from "./Point.js";
 import { Door } from "./Door.js";
 import { Plate } from "./Plate.js";
+import { Teleporteur } from "./Teleporteur.js";
 
 export class Grid {
     private walls: Point[] = [];
     private doors: Door[] = [];
     private plates: Plate[] = [];
     private goals: Point[] = [];
+    private teleporters: Teleporteur[] = [];
     private width: number;
     private height: number;
 
@@ -20,6 +22,8 @@ export class Grid {
         this.doors = [];
         this.plates = [];
         this.goals = [];
+        this.teleporters = [];
+
     }
 
     public addWall(x: number, y: number): void {
@@ -37,13 +41,16 @@ export class Grid {
     public addGoal(x: number, y: number): void {
         this.goals.push(new Point(x, y));
     }
+    public addTeleporteur(entryX: number, entryY: number, exitX: number, exitY: number): void {
+        this.teleporters.push(new Teleporteur(entryX, entryY, exitX, exitY));
+    }
 
     public updateDoors(playersPositions: Point[]): void {
         for (let i = 0; i < this.plates.length; i++) {
 
             this.plates[i].deactivate();
         }
-    
+
         for (let i = 0; i < playersPositions.length; i++) {
             const position = playersPositions[i];
             const plate = this.isPlate(position);
@@ -52,21 +59,22 @@ export class Grid {
                 plate.activate();
             }
         }
-    
+
         for (let i = 0; i < this.doors.length; i++) {
             const door = this.doors[i];
             let isLinkedPlateActive = false;
-    
+
             for (let j = 0; j < this.plates.length; j++) {
                 const plate = this.plates[j];
 
-                if (plate.getColor() === door.getColor() &&  plate.isActive()) {
+                if (plate.getColor() === door.getColor() && plate.isActive()) {
                     isLinkedPlateActive = true;
                 }
             }
             door.setOpen(isLinkedPlateActive);
         }
     }
+    
     public isPlate(position: Point): Plate | undefined {
         for (let i = 0; i < this.plates.length; i++) {
 
@@ -89,7 +97,7 @@ export class Grid {
 
     public isInGrid(position: Point): boolean {
         return position.x >= 0 && position.x < this.width && position.y >= 0 && position.y < this.height;
-        
+
     }
 
     public getDoorPos(position: Point): Door | undefined {
@@ -101,6 +109,16 @@ export class Grid {
         }
     }
 
+    public getTeleporteurEntre(position: Point): Teleporteur | undefined {
+        for (let i = 0; i < this.teleporters.length; i++) {
+            if (this.teleporters[i].isOnEntry(position)) {
+
+                return this.teleporters[i];
+            }
+        }
+        return undefined;
+    }
+
     public getDoors(): Door[] {
         return this.doors;
     }
@@ -108,7 +126,7 @@ export class Grid {
     public getPlates(): Plate[] {
         return this.plates;
     }
-    
+
     public getWalls(): Point[] {
         return this.walls;
     }
@@ -117,10 +135,14 @@ export class Grid {
         return this.goals;
     }
 
+    public getTeleporteurs(): Teleporteur[] {
+        return this.teleporters;
+    }
+
     public getWidth(): number {
         return this.width;
     }
-    
+
     public getHeight(): number {
         return this.height;
     }

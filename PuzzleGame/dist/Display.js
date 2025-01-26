@@ -21,6 +21,13 @@ export class Display {
         for (const goal of goals) {
             this.drawer.drawDiamond(goal.getX(), goal.getY(), "green");
         }
+        const teleporters = game.getGrid().getTeleporteurs();
+        for (const teleporter of teleporters) {
+            const entry = teleporter.getEntry();
+            const exit = teleporter.getExit();
+            this.drawer.drawRectangle(entry.getX(), entry.getY(), "purple");
+            this.drawer.drawRectangle(exit.getX(), exit.getY(), "orange");
+        }
         const player1 = game.getPlayer1();
         this.drawer.drawCircle(player1.getX(), player1.getY(), "black");
         const player2 = game.getPlayer2();
